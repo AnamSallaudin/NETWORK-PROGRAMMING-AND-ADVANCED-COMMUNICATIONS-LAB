@@ -41,11 +41,11 @@ void sort_letters(char *str) {
 int main() {
     int server_fd, client_fd;
     struct sockaddr_in server_addr, client_addr;
-    socklen_t addr_len = sizeof(client_addr);
+    socklen_t addr_size;
     char buffer[BUFFER_SIZE];
 
     // Create socket
-    server_fd = socket(AF_INET, SOCK_STREAM, 0)
+    server_fd = socket(AF_INET, SOCK_STREAM, 0);
     if (server_fd == 0) {
         perror("Socket failed");
         exit(EXIT_FAILURE);
@@ -71,7 +71,8 @@ int main() {
     printf("Server is listening on port %d...\n", PORT);
 
     // Accept client connection
-    if ((client_fd = accept(server_fd, (struct sockaddr*)&client_addr, &addr_len)) < 0) {
+    addr_size = sizeof(client_addr)
+    if ((client_fd = accept(server_fd, (struct sockaddr*)&client_addr, &addr_size)) < 0) {
         perror("Accept failed");
         exit(EXIT_FAILURE);
     }
