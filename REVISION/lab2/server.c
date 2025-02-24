@@ -40,7 +40,7 @@ void analyzeFile(const char *filename, char *response) {
 int main() {
     int server_fd, new_socket;
     struct sockaddr_in address;
-    int addrlen = sizeof(address);
+    socklen_t addrlen = sizeof(address);
     char buffer[BUFFER_SIZE] = {0};
 
     server_fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -68,7 +68,7 @@ int main() {
     printf("Server listening on port %d...\n", PORT);
 
     while (1) {
-        new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen);
+        new_socket = accept(server_fd, (struct sockaddr *)&address, &addrlen);
         if (new_socket < 0) {
             perror("Accept failed");
             continue;
